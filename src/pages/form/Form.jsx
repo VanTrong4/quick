@@ -1,23 +1,19 @@
 import React, { useState } from "react";
 
 const messageValidate = {
+    default: {
+        empty: "text empty",
+    },
     register_number: {
         empty: "radio empty",
     },
     card_brand: {
         empty: "select empty",
     },
-    name: {
-        empty: "text empty",
-    },
-    furigana: {
-        empty: "text empty",
-    },
     gender: {
         empty: "radio empty",
     },
     email: {
-        empty: "text empty",
         email: "isn't email",
     },
     telephone: {
@@ -28,12 +24,6 @@ const messageValidate = {
     },
     post2: {
         empty: "number empty",
-    },
-    pref: {
-        empty: "text empty",
-    },
-    addr: {
-        empty: "text empty",
     },
     amount_money: {
         empty: "radio empty",
@@ -117,11 +107,15 @@ const Form = () => {
     const [dataForm, setDataForm] = useState(initForm);
     const onchangeInput = (e) => {
         const { value } = e.target;
-        setDataForm({ ...dataForm, [e.target.name]: { ...dataForm[e.target.name], data: value, error: value ? "" : "field empty" } });
+        setDataForm({ ...dataForm, [e.target.name]: { ...dataForm[e.target.name], data: value } });
+        validateForm(e);
     };
     const submitForm = (e) => {
         e.preventDefault();
         console.log(dataForm);
+    };
+    const validateForm = (e) => {
+        dataForm[e.target.name].data === "" && setDataForm({ ...dataForm, [e.target.name]: { ...dataForm[e.target.name], error: messageValidate.default } });
     };
     return (
         <>
